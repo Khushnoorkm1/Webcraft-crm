@@ -1,0 +1,45 @@
+{
+  "name": "Objection Handler Workflow",
+  "description": "Self-learning workflow for handling customer objections",
+  "version": "1.0.0",
+  "triggers": [
+    {
+      "type": "objection_detected",
+      "description": "Triggered when a customer objection is identified"
+    }
+  ],
+  "handlers": [
+    {
+      "id": "price_objection",
+      "type": "price",
+      "responses": [
+        "Let me show you the ROI of this investment",
+        "We offer flexible payment plans",
+        "Consider the long-term value"
+      ]
+    },
+    {
+      "id": "timing_objection",
+      "type": "timing",
+      "responses": [
+        "Now is the perfect time to start",
+        "We can schedule this for later",
+        "Early adoption gives you a competitive advantage"
+      ]
+    },
+    {
+      "id": "need_objection",
+      "type": "need",
+      "responses": [
+        "Let me understand your specific needs",
+        "Here's how this solves your problem",
+        "Many clients had similar concerns"
+      ]
+    }
+  ],
+  "learning_config": {
+    "enabled": true,
+    "track_effectiveness": true,
+    "update_frequency": "weekly"
+  }
+}
