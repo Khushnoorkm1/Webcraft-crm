@@ -1,0 +1,33 @@
+{
+  "name": "WhatsApp AI Agent Workflow",
+  "description": "Automated workflow for WhatsApp AI Agent interactions",
+  "version": "1.0.0",
+  "triggers": [
+    {
+      "type": "whatsapp_message",
+      "event": "message_received"
+    }
+  ],
+  "actions": [
+    {
+      "id": "process_message",
+      "type": "ai_agent",
+      "config": {
+        "model": "gpt-4",
+        "temperature": 0.7,
+        "max_tokens": 500
+      }
+    },
+    {
+      "id": "send_response",
+      "type": "whatsapp_send",
+      "config": {
+        "format": "text"
+      }
+    }
+  ],
+  "conditions": [],
+  "enabled": true,
+  "created_at": "2026-05-03T15:17:00Z",
+  "updated_at": "2026-05-03T15:17:00Z"
+}
