@@ -1,0 +1,50 @@
+{
+  "name": "Call Sentiment Analysis",
+  "description": "Workflow to analyze sentiment from call transcripts and recordings",
+  "version": "1.0.0",
+  "triggers": [
+    {
+      "type": "call_completed",
+      "description": "Triggered when a call is completed"
+    }
+  ],
+  "steps": [
+    {
+      "id": "extract_transcript",
+      "name": "Extract Call Transcript",
+      "action": "extract_transcript",
+      "description": "Extract transcript from call recording"
+    },
+    {
+      "id": "analyze_sentiment",
+      "name": "Analyze Sentiment",
+      "action": "sentiment_analysis",
+      "input": "${extract_transcript.output}",
+      "description": "Analyze sentiment of the call transcript",
+      "parameters": {
+        "model": "advanced",
+        "language": "en"
+      }
+    },
+    {
+      "id": "store_results",
+      "name": "Store Analysis Results",
+      "action": "store_sentiment_data",
+      "input": "${analyze_sentiment.output}",
+      "description": "Store sentiment analysis results in database"
+    },
+    {
+      "id": "notify_team",
+      "name": "Notify Team",
+      "action": "send_notification",
+      "condition": "${analyze_sentiment.sentiment_score < 0.5}",
+      "description": "Notify team if sentiment is negative"
+    }
+  ],
+  "outputs": {
+    "sentiment_score": "Numerical sentiment score (0-1)",
+    "sentiment_label": "Sentiment classification (positive, neutral, negative)",
+    "key_phrases": "Important phrases from the call",
+    "summary": "Brief summary of call sentiment"
+  }
+}
