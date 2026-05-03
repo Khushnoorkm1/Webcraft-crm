@@ -1,0 +1,101 @@
+{
+  "name": "Lead Scoring Workflow",
+  "description": "Automated workflow for scoring and classifying leads as Hot, Warm, or Cold",
+  "version": "1.0.0",
+  "triggers": [
+    {
+      "type": "lead_created",
+      "description": "Triggered when a new lead is created"
+    },
+    {
+      "type": "lead_updated",
+      "description": "Triggered when a lead is updated"
+    }
+  ],
+  "scoring_rules": [
+    {
+      "rule_id": "engagement_score",
+      "name": "Engagement Score",
+      "weight": 40,
+      "criteria": [
+        {
+          "action": "email_opened",
+          "points": 5
+        },
+        {
+          "action": "link_clicked",
+          "points": 10
+        },
+        {
+          "action": "page_visited",
+          "points": 3
+        }
+      ]
+    },
+    {
+      "rule_id": "company_fit_score",
+      "name": "Company Fit Score",
+      "weight": 35,
+      "criteria": [
+        {
+          "attribute": "company_size",
+          "target_range": "50-500",
+          "points": 15
+        },
+        {
+          "attribute": "industry",
+          "target_values": ["Technology", "Finance", "Healthcare"],
+          "points": 20
+        }
+      ]
+    },
+    {
+      "rule_id": "budget_authority_score",
+      "name": "Budget & Authority Score",
+      "weight": 25,
+      "criteria": [
+        {
+          "attribute": "job_title",
+          "target_values": ["Manager", "Director", "VP", "C-Level"],
+          "points": 25
+        },
+        {
+          "attribute": "budget_confirmed",
+          "value": true,
+          "points": 15
+        }
+      ]
+    }
+  ],
+  "classification": {
+    "hot": {
+      "min_score": 75,
+      "description": "High priority leads ready for immediate sales engagement",
+      "actions": [
+        "assign_to_sales",
+        "send_priority_email",
+        "schedule_call"
+      ]
+    },
+    "warm": {
+      "min_score": 50,
+      "max_score": 74,
+      "description": "Qualified leads requiring nurturing",
+      "actions": [
+        "add_to_nurture_campaign",
+        "send_educational_content"
+      ]
+    },
+    "cold": {
+      "max_score": 49,
+      "description": "Leads requiring additional qualification",
+      "actions": [
+        "add_to_general_list",
+        "send_awareness_content"
+      ]
+    }
+  },
+  "recalculation_frequency": "daily",
+  "created_at": "2026-05-03T15:16:00Z",
+  "created_by": "khushnoor19921992@gmail.com"
+}
