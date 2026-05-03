@@ -1,0 +1,39 @@
+{
+  "name": "Payment Tracking Workflow",
+  "description": "Automated workflow for tracking and reporting payment activities",
+  "version": "1.0.0",
+  "triggers": [
+    {
+      "type": "payment_received",
+      "description": "Triggered when a payment is received"
+    },
+    {
+      "type": "payment_failed",
+      "description": "Triggered when a payment fails"
+    },
+    {
+      "type": "scheduled",
+      "schedule": "weekly",
+      "description": "Runs weekly for payment reconciliation"
+    }
+  ],
+  "actions": [
+    {
+      "type": "log_payment",
+      "description": "Log payment transaction details"
+    },
+    {
+      "type": "update_status",
+      "description": "Update payment status in database"
+    },
+    {
+      "type": "send_notification",
+      "description": "Send payment confirmation notification"
+    },
+    {
+      "type": "generate_report",
+      "description": "Generate weekly payment report"
+    }
+  ],
+  "enabled": true
+}
