@@ -1,0 +1,44 @@
+{
+  "id": "workflow_3",
+  "name": "Call Response Saver",
+  "description": "Workflow to save and manage call responses",
+  "version": "1.0.0",
+  "enabled": true,
+  "triggers": [
+    {
+      "type": "call_completed",
+      "description": "Triggered when a call is completed"
+    }
+  ],
+  "steps": [
+    {
+      "id": "step_1",
+      "name": "Capture Call Response",
+      "action": "capture_response",
+      "config": {
+        "fields": ["duration", "status", "notes", "outcome"]
+      }
+    },
+    {
+      "id": "step_2",
+      "name": "Save to Database",
+      "action": "save_response",
+      "config": {
+        "table": "call_responses",
+        "timestamp": true
+      }
+    },
+    {
+      "id": "step_3",
+      "name": "Update Contact Record",
+      "action": "update_contact",
+      "config": {
+        "fields": ["last_call_date", "call_status", "notes"]
+      }
+    }
+  ],
+  "notifications": {
+    "enabled": true,
+    "on_completion": true
+  }
+}
